@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CALI Tools</title>
+<style>
+body {
+    background: #0a0a0a;
+    color: white;
+    font-family: "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 50px;
+    border-bottom: 1px solid #1a1a1a;
+    position: sticky;
+    top: 0;
+    background: #0a0a0a;
+    z-index: 100;
+}
+.logo { font-size: 26px; font-weight: 700; letter-spacing: 3px; }
+nav a { color: #888; text-decoration: none; margin-left: 25px; transition: 0.3s; cursor: pointer; }
+nav a:hover { color: white; }
+.section { max-width: 1000px; margin: auto; padding: 60px 20px; }
+h2 { text-align: center; margin-bottom: 40px; }
+.tool-card {
+    background: #111;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    transition: 0.2s;
+}
+.tool-card:hover { background: #151515; }
+.tool-card h3 { margin-bottom: 15px; }
+input, select { width: 100%; padding: 12px; margin-top: 10px; background: #1a1a1a; border: none; color: white; }
+button { margin-top: 15px; padding: 12px 25px; background: white; color: black; border: none; cursor: pointer; font-weight: bold; transition: 0.2s; }
+button:hover { transform: scale(1.05); }
+.result { margin-top: 15px; font-weight: bold; color: #00ffcc; }
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">CALI.</div>
+<nav>
+    <a href="cali2.html">Tools</a>
+    <a href="progress.html">Progress</a>
+    <a href="#">Merch</a>
+</nav>
+</header>
+
+<section class="section" id="tools-section">
+<h2>All Training Tools</h2>
+
+<div class="tool-card">
+<h3>Daily Calories Calculator</h3>
+<input type="number" id="weight" placeholder="Weight (kg)">
+<input type="number" id="height" placeholder="Height (cm)">
+<select id="goal">
+<option value="bulk">Bulk</option>
+<option value="cut">Cut</option>
+</select>
+<button onclick="calcCalories()">Calculate</button>
+<div class="result" id="calResult"></div>
+</div>
+
+<div class="tool-card">
+<h3>Strength Level Test</h3>
+<input type="number" id="pushups" placeholder="Max push-ups">
+<button onclick="checkStrength()">Check Level</button>
+<div class="result" id="strengthResult"></div>
+</div>
+
+<div class="tool-card">
+<h3>Workout Planner</h3>
+<p>Click below to open detailed planner:</p>
+<a href="workoutplanner.html"><button>Open Workout Planner</button></a>
+</div>
+
+</section>
+
+<script>
+function calcCalories() {
+    let weight = document.getElementById("weight").value;
+    let height = document.getElementById("height").value;
+    let goal = document.getElementById("goal").value;
+    if(!weight || !height) { alert("Fill weight and height!"); return; }
+    let bmr = 10*weight + 6.25*height - 5*20 + 5;
+    if(goal==="bulk") bmr+=300;
+    if(goal==="cut") bmr-=300;
+    document.getElementById("calResult").innerText = "Daily Calories: " + Math.round(bmr) + " kcal";
+}
+
+function checkStrength() {
+    let reps = document.getElementById("pushups").value;
+    let level = "";
+    if(reps < 10) level = "Beginner";
+    else if(reps < 25) level = "Average";
+    else if(reps < 50) level = "Strong";
+    else level = "Elite";
+    document.getElementById("strengthResult").innerText = "Level: " + level;
+}
+</script>
+
+</body>
+</html>

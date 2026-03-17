@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CALI Workout Planner</title>
+<style>
+body { background: #0a0a0a; color: white; font-family: "Segoe UI", sans-serif; margin:0; padding:0; }
+header { display:flex; justify-content:space-between; padding:20px 50px; border-bottom:1px solid #1a1a1a; position:sticky; top:0; background:#0a0a0a; z-index:100; }
+.logo { font-size:26px; font-weight:700; letter-spacing:3px; }
+nav a { color:#888; text-decoration:none; margin-left:25px; transition:0.3s; cursor:pointer; }
+nav a:hover { color:white; }
+.section { max-width:1000px; margin:auto; padding:60px 20px; }
+h2 { text-align:center; margin-bottom:40px; }
+.tool-card { background:#111; padding:25px; border-radius:12px; margin-bottom:25px; transition:0.2s; }
+.tool-card:hover { background:#151515; }
+.tool-card h3 { margin-bottom:15px; }
+input, select { width:100%; padding:12px; margin-top:10px; background:#1a1a1a; border:none; color:white; }
+button { margin-top:15px; padding:12px 25px; background:white; color:black; border:none; cursor:pointer; font-weight:bold; transition:0.2s; }
+button:hover { transform:scale(1.05); }
+.result { margin-top:15px; font-weight:bold; color:#00ffcc; white-space: pre-line; }
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">CALI.</div>
+<nav>
+    <a href="cali1.html">Tools</a>
+    <a href="#">Progress</a>
+    <a href="#">Merch</a>
+</nav>
+</header>
+
+<section class="section">
+<h2>Personalized Workout Planner</h2>
+
+<div class="tool-card">
+<h3>Enter Your Info</h3>
+<input type="number" id="weight" placeholder="Weight (kg)">
+<input type="number" id="height" placeholder="Height (cm)">
+<input type="number" id="age" placeholder="Age (years)">
+<select id="level">
+<option value="beginner">Beginner</option>
+<option value="intermediate">Intermediate</option>
+<option value="advanced">Advanced</option>
+</select>
+<select id="goal">
+<option value="bulk">Bulk</option>
+<option value="cut">Cut</option>
+<option value="maintain">Maintain</option>
+</select>
+<select id="focus">
+<option value="strength">Strength</option>
+<option value="endurance">Endurance</option>
+<option value="skills">Skills / Calisthenics</option>
+</select>
+<button onclick="generateWorkout()">Generate Workout</button>
+<div class="result" id="workoutResult"></div>
+</div>
+
+</section>
+
+<script>
+function generateWorkout() {
+    let weight = document.getElementById("weight").value;
+    let height = document.getElementById("height").value;
+    let age = document.getElementById("age").value;
+    let level = document.getElementById("level").value;
+    let goal = document.getElementById("goal").value;
+    let focus = document.getElementById("focus").value;
+
+    if(!weight || !height || !age) { alert("Fill all fields!"); return; }
+
+    let workout = "Personalized Workout Plan\n\n";
+    workout += `Level: ${level}\nGoal: ${goal}\nFocus: ${focus}\n\n`;
+
+    // Beginner
+    if(level==="beginner") {
+        workout += "Warm-up: 5-10 min dynamic stretching\n\n";
+        if(focus==="strength" || focus==="skills") {
+            workout += "Push-ups: 3x10-15\nSquats: 3x15\nPlank: 3x30s\nPull-ups (assisted if needed): 3x5-8\n";
+        } else if(focus==="endurance") {
+            workout += "Jumping Jacks: 3x1 min\nBodyweight Squats: 3x15\nPush-ups: 3x12\nPlank: 2x45s\n";
+        }
+    }
+
+    // Intermediate
+    if(level==="intermediate") {
+        workout += "Warm-up: 5-10 min dynamic stretching + mobility work\n\n";
+        if(focus==="strength") {
+            workout += "Pull-ups: 4x8-12\nDips: 4x10-12\nPush-ups: 4x20\nSquats: 4x20\nPlank: 3x60s\n";
+        } else if(focus==="endurance") {
+            workout += "Burpees: 4x12\nJump Squats: 4x15\nPush-ups: 4x20\nMountain Climbers: 4x1min\nPlank: 3x60s\n";
+        } else if(focus==="skills") {
+            workout += "Muscle-up practice: 3x5\nHandstand practice: 5 min\nL-sit: 3x15s\nPush-ups: 4x20\nSquats: 4x20\n";
+        }
+    }
+
+    // Advanced
+    if(level==="advanced") {
+        workout += "Warm-up: 10 min mobility + dynamic stretching\n\n";
+        if(focus==="strength") {
+            workout += "Weighted Pull-ups: 5x8\nDips: 5x12\nHandstand Push-ups: 5x5-8\nPistol Squats: 4x10\nPlank: 4x90s\n";
+        } else if(focus==="endurance") {
+            workout += "Burpees: 5x20\nJump Squats: 5x15\nPush-ups: 5x25\nMountain Climbers: 5x1.5min\nPlank: 4x90s\n";
+        } else if(focus==="skills") {
+            workout += "Muscle-up: 5x5\nHandstand hold: 5x1min\nFront Lever practice: 5x10s\nPlanche practice: 5x10s\nPush-ups: 5x25\nSquats: 5x20\n";
+        }
+    }
+
+    // Adjustments based on goal
+    if(goal==="bulk") workout += "\nAdd extra sets or increase intensity for hypertrophy.\n";
+    if(goal==="cut") workout += "\nReduce rest time, focus on high intensity and keep reps moderate.\n";
+    if(goal==="maintain") workout += "\nMaintain current reps/sets, focus on form.\n";
+
+    document.getElementById("workoutResult").innerText = workout;
+}
+</script>
+
+</body>
+</html>
